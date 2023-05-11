@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "d08eab4f-6558-449c-a91c-83cefd2a72a4",
+		"name": "Aerospike Expression Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read data using provided json filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"exps\": [\r\n            {\r\n              \"name\": \"a\",\r\n              \"type\": \"INT\"\r\n            },\r\n            {\r\n              \"val\": 5\r\n            }\r\n          ],\r\n          \"cmd\": \"GT\"\r\n        },\r\n        {\r\n          \"exps\": [\r\n            {\r\n              \"name\": \"a\",\r\n              \"type\": \"INT\"\r\n            },\r\n            {\r\n              \"val\": 0\r\n            }\r\n          ],\r\n          \"cmd\": \"EQ\"\r\n        }\r\n      ],\r\n      \"cmd\": \"OR\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"b\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"val\": 3\r\n        }\r\n      ],\r\n      \"cmd\": \"LT\"\r\n    }\r\n  ],\r\n  \"cmd\": \"AND\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"eid\":10,\r\n    \"name\":\"mike\",\r\n    \"email\":\"mk@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/add-emp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"add-emp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read data by email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/data/get-emp-list?email=mike@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"get-emp-list"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "mike@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
