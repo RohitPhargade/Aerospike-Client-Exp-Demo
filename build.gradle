@@ -9,6 +9,8 @@ group = "com.example"
 repositories {
     mavenCentral()
 }
+tasks.build.dependsOn('printVariable')
+
 
 task printVariable {
     doLast {
