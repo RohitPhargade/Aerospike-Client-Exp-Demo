@@ -10,6 +10,13 @@ repositories {
     mavenCentral()
 }
 
+task printVariable {
+    doLast {
+        def myVariable = System.getenv('varrohit')
+        println "The value of the variable is: $myVariable"
+    }
+}
+
 dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation")
     implementation("io.micronaut:micronaut-http-client")
