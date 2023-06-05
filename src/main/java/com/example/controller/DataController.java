@@ -21,7 +21,7 @@ import java.util.List;
 @Controller("/data")
 public class DataController {
 
-    @Inject
+//    @Inject
     private AeroMapperConfiguration configuration;
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

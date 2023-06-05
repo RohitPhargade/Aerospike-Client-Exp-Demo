@@ -22,8 +22,8 @@ public class AeroMapperConfiguration {
         policy.writePolicyDefault.durableDelete = true;
         policy.writePolicyDefault.sendKey = true;
 
-        this.aerospikeClient = new AerospikeClient(policy, "localhost", 3000);
-        mapper = new AeroMapper.Builder(aerospikeClient).build();
+//        this.aerospikeClient = new AerospikeClient(policy, "localhost", 3000);
+//        mapper = new AeroMapper.Builder(aerospikeClient).build();
     }
 
     public AeroMapper getMapper() {
