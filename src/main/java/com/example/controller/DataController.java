@@ -4,10 +4,12 @@ import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.Bin;
 import com.aerospike.client.Key;
 import com.aerospike.client.exp.Exp;
+import com.aerospike.client.exp.Expression;
 import com.aerospike.client.policy.ClientPolicy;
 import com.aerospike.client.policy.QueryPolicy;
+import com.aerospike.client.query.RegexFlag;
 import com.example.entity.Employee;
-import com.example.utils.AeroMapperConfiguration;
+import com.example.config.AeroMapperConfiguration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
@@ -16,22 +18,22 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import jakarta.inject.Inject;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Controller("/data")
 public class DataController {
 
-//    @Inject
+    @Inject
     private AeroMapperConfiguration configuration;
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     //fetch data using json
-    @Post("/read-data-by-json-filter")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Post(value = "/read-data-by-json-filter", produces = MediaType.APPLICATION_JSON, consumes = MediaType.TEXT_PLAIN)
     public Object readData(String jsonString) {
 
-        com.example.utils.Exp exp = gson.fromJson(jsonString, com.example.utils.Exp.class);
+        com.example.utils_using_switch.Exp exp = gson.fromJson(jsonString, com.example.utils_using_switch.Exp.class);
+
         // Convert Java objects to Java code
         Exp finalExpObject = exp.toJavaCode();
 
@@ -40,15 +42,21 @@ public class DataController {
 
         QueryPolicy queryPolicy = new QueryPolicy();
         queryPolicy.filterExp = Exp.build(finalExpObject);
-        return configuration.getMapper().query(queryPolicy, Employee.class, null);
+        try {
+            return configuration.getMapper().query(queryPolicy, Employee.class, null);
+        } catch (
+                Exception e) {
+            return "Expression build successfully\n" + gson.toJson(finalExpObject);
+        }
+
     }
 
 
     @Post("/add-emp")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public String addEmployee(@Body Employee employee) throws JsonProcessingException {
-        // Create an Aerospike client object / we can use aeromapper also
+//        configuration.getMapper().save(employee);
+
         ClientPolicy policy = new ClientPolicy();
         AerospikeClient client = new AerospikeClient(policy, "localhost", 3000);
 
@@ -58,7 +66,7 @@ public class DataController {
         Bin eid = new Bin("eid", employee.getEid());
         Bin name = new Bin("name", employee.getName());
         Bin email = new Bin("email", employee.getEmail());
-        client.put(null, key,eid,name,email);
+        client.put(null, key, eid, name, email);
 
         // Close the Aerospike client connection
         client.close();

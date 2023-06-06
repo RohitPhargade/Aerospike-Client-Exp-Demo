@@ -6,7 +6,31 @@
 	},
 	"item": [
 		{
-			"name": "Read data using provided json filter",
+			"name": "Expression1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"name\": \"email\",\r\n      \"type\": \"STRING\"\r\n    },\r\n    {\r\n      \"val\": \"mk@gmail.com\"\r\n    }\r\n  ],\r\n  \"cmd\": \"EQ\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Expression2",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -30,13 +54,133 @@
 			"response": []
 		},
 		{
+			"name": "Expression3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"name\": \"a\",\r\n      \"type\": \"INT\"\r\n    },\r\n    {\r\n      \"val\": 10\r\n    }\r\n  ],\r\n  \"cmd\": \"GT\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Expression4",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"exps\": [\r\n            {\r\n              \"name\": \"a\",\r\n              \"type\": \"INT\"\r\n            },\r\n            {\r\n              \"val\": 5\r\n            }\r\n          ],\r\n          \"cmd\": \"GT\"\r\n        },\r\n        {\r\n          \"exps\": [\r\n            {\r\n              \"name\": \"a\",\r\n              \"type\": \"INT\"\r\n            },\r\n            {\r\n              \"val\": 0\r\n            }\r\n          ],\r\n          \"cmd\": \"EQ\"\r\n        }\r\n      ],\r\n      \"cmd\": \"OR\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"b\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"val\": 3\r\n        }\r\n      ],\r\n      \"cmd\": \"LT\"\r\n    }\r\n  ],\r\n  \"cmd\": \"AND\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Expression5",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"type\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"val\": 0\r\n        }\r\n      ],\r\n      \"cmd\": \"EQ\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"val1\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"name\": \"val2\",\r\n          \"type\": \"INT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"ADD\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"type\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"val\": 1\r\n        }\r\n      ],\r\n      \"cmd\": \"EQ\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"val1\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"name\": \"val2\",\r\n          \"type\": \"INT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"SUB\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"type\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"val\": 2\r\n        }\r\n      ],\r\n      \"cmd\": \"EQ\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"val1\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"name\": \"val2\",\r\n          \"type\": \"INT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"MUL\"\r\n    },\r\n    {\r\n      \"val\": -1\r\n    }\r\n  ],\r\n  \"cmd\": \"COND\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Expression6",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"exps\": [\r\n            {\r\n              \"name\": \"a\",\r\n              \"type\": \"INT\"\r\n            },\r\n            {\r\n              \"val\": 5\r\n            }\r\n          ],\r\n          \"cmd\": \"GT\"\r\n        },\r\n        {\r\n          \"exps\": [\r\n            {\r\n              \"name\": \"b\",\r\n              \"type\": \"INT\"\r\n            },\r\n            {\r\n              \"val\": 10\r\n            }\r\n          ],\r\n          \"cmd\": \"LT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"AND\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"c\",\r\n          \"type\": \"STRING\"\r\n        },\r\n        {\r\n          \"val\": \"example\"\r\n        }\r\n      ],\r\n      \"cmd\": \"EQ\"\r\n    },\r\n    {\r\n      \"name\": \"e\",\r\n      \"type\": \"MAP\"\r\n    }\r\n  ],\r\n  \"cmd\": \"AND\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Expression7",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exps\": [\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"a\",\r\n          \"type\": \"INT\"\r\n        },\r\n        {\r\n          \"name\": \"b\",\r\n          \"type\": \"INT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"NOT\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"c\",\r\n          \"type\": \"FLOAT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"ABS\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"d\",\r\n          \"type\": \"FLOAT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"FLOOR\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"e\",\r\n          \"type\": \"FLOAT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"CEIL\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"f\",\r\n          \"type\": \"FLOAT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"TO_INT\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"g\",\r\n          \"type\": \"INT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"TO_FLOAT\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"h\",\r\n          \"type\": \"INT\"\r\n        }\r\n      ],\r\n      \"cmd\": \"INT_NOT\"\r\n    },\r\n    {\r\n      \"exps\": [\r\n        {\r\n          \"name\": \"i\",\r\n          \"type\": \"LIST\"\r\n        }\r\n      ],\r\n      \"cmd\": \"INT_COUNT\"\r\n    }\r\n  ],\r\n  \"cmd\": \"AND\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/data/read-data-by-json-filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"data",
+						"read-data-by-json-filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add employee",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"eid\":10,\r\n    \"name\":\"mike\",\r\n    \"email\":\"mk@gmail.com\"\r\n}",
+					"raw": "{\r\n    \"eid\":11,\r\n    \"name\":\"mike\",\r\n    \"email\":\"mk@gmail.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,7 +208,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/data/get-emp-list?email=mike@gmail.com",
+					"raw": "http://localhost:8080/data/get-emp-list?email=mk@gmail.com",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -77,7 +221,7 @@
 					"query": [
 						{
 							"key": "email",
-							"value": "mike@gmail.com"
+							"value": "mk@gmail.com"
 						}
 					]
 				}

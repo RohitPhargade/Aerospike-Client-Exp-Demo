@@ -9,15 +9,7 @@ group = "com.example"
 repositories {
     mavenCentral()
 }
-tasks.build.dependsOn('printVariable')
 
-
-task printVariable {
-    doLast {
-        def myVariable = System.getenv('varrohit')
-        println "The value of the variable is: $myVariable"
-    }
-}
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation")
@@ -27,9 +19,11 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
 
     implementation 'com.aerospike:aerospike-client:6.1.9'
-    implementation("com.aerospike:java-object-mapper:1.4.0")
+    implementation('com.aerospike:java-object-mapper:2.2.0')
     implementation 'com.google.code.gson:gson:2.10.1'
 
+    implementation("org.projectlombok:lombok")
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
 }
 

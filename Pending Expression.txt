@@ -1,0 +1,28 @@
+Not Yet to covered
+
+key							public static Exp key(Type type) 
+keyExists					public static Exp keyExists() 
+binExists					public static Exp binExists(String name) 
+binType						public static Exp binType(String name) 
+
+setName						public static Exp setName() 
+deviceSize					public static Exp deviceSize() 
+memorySize					public static Exp memorySize() 
+lastUpdate					public static Exp lastUpdate() 
+sinceUpdate					public static Exp sinceUpdate() 
+voidTime					public static Exp voidTime() 
+ttl							public static Exp ttl() 
+isTombstone					public static Exp isTombstone() 
+digestModulo				public static Exp digestModulo(int mod) 
+regexCompare				public static Exp regexCompare(String regex, int flags, Exp bin) 
+geoCompare					public static Exp geoCompare(Exp left, Exp right) 
+
+geo							public static Exp geo(String val) 
+nil							public static Exp nil() 
+
+let							public static Exp let(Exp... exps) 
+def							public static Exp def(String name, Exp value) 
+var							public static Exp var(String name) 
+unknown						public static Exp unknown() 
+expr						public static Exp expr(Expression e) 
+
