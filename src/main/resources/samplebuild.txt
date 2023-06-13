@@ -1,0 +1,172 @@
+//buildscript {
+//    repositories {
+//        maven {
+//            url 'https://plugins.gradle.org/m2/'
+//        }
+//    }
+//    dependencies {
+//        classpath 'net.researchgate:gradle-release:3.0.2'
+//    }
+//}
+
+
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.7.9"
+//    id 'net.researchgate.release' version '3.0.2'
+}
+version = '0.4.16'
+group = "com.example"
+
+//apply plugin: 'net.researchgate.release'
+
+ext {
+commitHash = 'c6fee2481e2e0e304e03e925dcde01c859bf869a'
+}
+
+
+def writeCommitHashToBuildFile(commitHash) {
+    println "55 commitHash $commitHash"
+    ext.commitHash = commitHash
+    println "56 ext.commitHash $ext.commitHash"
+    def buildFile = file('build.gradle')
+    def buildFileContent = buildFile.text
+//    println "57 ext.commitHash $buildFileContent"
+//    def commitHashPattern = /ext\.commitHash\s*=\s*['"].*['"]/
+//    def commitHashPattern = /(?<=ext\.commitHash\s*=\s*['"]).*?(?=['"])/
+//    def updatedBuildFileContent = buildFileContent.replaceAll(commitHashPattern, "ext.commitHash = '$commitHash'")
+//    def updatedBuildFileContent = buildFileContent.replaceAll(commitHashPattern, commitHash)
+
+//    def commitHashPattern = /(?<=commitHash\s*=\s*['"]).*?(?=['"])/
+//    def updatedBuildFileContent = buildFileContent.replaceFirst(commitHashPattern, commitHash)
+
+    def commitHashPattern = /(?m)^\s*commitHash\s*=\s*['"].*['"]\s*$/
+    def updatedBuildFileContent = buildFileContent.replaceFirst(commitHashPattern, "commitHash = '$commitHash'")
+
+
+
+    println "hash updated to $commitHash"
+    buildFile.text = updatedBuildFileContent
+//    println "58 ext.commitHash $updatedBuildFileContent"
+}
+def incrementVersionIfCommitChanged() {
+    def currentCommitHash = "git rev-parse HEAD".execute().text.trim()
+    def storedCommitHash = ext.commitHash
+    println "1 currentCommitHash $currentCommitHash"
+    println "2 storedCommitHash $storedCommitHash"
+    if (currentCommitHash != storedCommitHash) {
+        def currentVersion = readPreviousVersionFromBuildFile()
+        def incrementedVersion = incrementVersion(currentVersion, 1)
+        writeVersionToBuildFile(incrementedVersion)
+
+        println "Version incremented to $incrementedVersion"
+    }
+
+    writeCommitHashToBuildFile(currentCommitHash)
+}
+
+//-----------------------------------------------
+def readPreviousVersionFromBuildFile() {
+    def buildFile = file('build.gradle')
+    def buildFileContent = buildFile.text
+    def versionPattern = /version\s*=\s*['"](.*)['"]/
+    def versionMatch = (buildFileContent =~ versionPattern)
+
+    if (versionMatch) {
+        return versionMatch[0][1]
+    } else {
+        throw new GradleException("Previous version not found in build.gradle")
+    }
+}
+
+def incrementVersion(version, incrementValue) {
+    def versionComponents = version.split('\\.')
+    def lastComponent = versionComponents[-1].toInteger()
+    lastComponent += incrementValue
+    versionComponents[-1] = lastComponent.toString()
+    return versionComponents.join('.')
+}
+
+
+def writeVersionToBuildFile(version) {
+    def buildFile = file('build.gradle')
+    def buildFileContent = buildFile.text
+//    def versionPattern = /version\s*=\s*['"].*['"]/
+    def versionPattern = /(?m)^\s*version\s*=\s*['"].*['"]\s*$/
+    def updatedBuildFileContent = buildFileContent.replaceAll(versionPattern, "version = '$version'")
+
+    buildFile.text = updatedBuildFileContent
+}
+
+
+task customVersionTask {
+    doLast {
+        incrementVersionIfCommitChanged()
+
+//        def currentVersion = readPreviousVersionFromBuildFile()
+//        def incrementValue = 1 // Specify the value by which you want to increment the version
+//
+//        def newVersion = incrementVersion(currentVersion, incrementValue)
+//        writeVersionToBuildFile(newVersion)
+//        def gitStatus = "git status --porcelain".execute().text.trim()
+//        def commitHash = "git rev-parse HEAD".execute().text.trim()
+//        def branchName = "git rev-parse --abbrev-ref HEAD".execute().text.trim()
+//        def commitMessage = "git log --format=%B -n 1".execute().text.trim()
+//        println "git info: $gitStatus"
+//        println "git commitHash: $commitHash"
+//        println "git branchName: $branchName"
+//        println "git commitMessage: $commitMessage"
+//        println "New version: $newVersion"
+    }
+}
+build.dependsOn(customVersionTask)
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    runtimeOnly("ch.qos.logback:logback-classic")
+
+    implementation 'com.aerospike:aerospike-client:6.1.9'
+    implementation('com.aerospike:java-object-mapper:2.2.0')
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    implementation('io.projectreactor:reactor-core:3.5.4')
+    implementation "io.reactivex.rxjava2:rxjava"
+
+//    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.netty:netty-codec-http")
+    implementation("io.netty:netty-handler")
+    implementation("io.netty:netty-buffer")
+
+
+
+}
+
+application {
+    mainClass.set("com.example.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.example.*")
+    }
+}
+
+
+
