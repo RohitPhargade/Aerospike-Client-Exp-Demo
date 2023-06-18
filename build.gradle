@@ -10,6 +10,17 @@ repositories {
     mavenCentral()
 }
 
+tasks.register('customVersionTask') {
+    doLast {
+        def pipelinenameEnv = System.getenv('GO_PIPELINE_NAME')
+        def pipelinenamePro = System.getProperty('GO_PIPELINE_NAME')
+        println "System pipelinenameEnv $pipelinenameEnv"
+        println "System pipelinenamePro $pipelinenamePro"
+    }
+}
+
+build.dependsOn(customVersionTask)
+
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation")
