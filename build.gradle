@@ -20,6 +20,7 @@ tasks.register('customVersionTask') {
         println "System pipelinenamePro $pipelinenamePro"
         println "System GO_REVISION_MATERIAL_NAME_env $GO_REVISION_MATERIAL_NAME_env"
         println "System GO_REVISION_MATERIAL_NAME_pro $GO_REVISION_MATERIAL_NAME_pro"
+
     }
 }
 
