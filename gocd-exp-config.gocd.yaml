@@ -8,9 +8,11 @@ pipelines:
     materials:
       exp-material:
         git: https://github.com/RohitPhargade/Aerospike-Client-Exp-Demo.git
+        username: phargaderohit9696@gmail.com
         shallow_clone: false
         auto_update: true
         branch: main
+        encrypted_password: AES:426ni8BbY/IxYl9jACpCjw==:o6ZOrsV7HSpa9plU1xRTPQ==
     stages:
       - stage2:
           fetch_materials: true
@@ -22,6 +24,8 @@ pipelines:
           jobs:
             jobname2:
               timeout: 0
+              environment_variables:
+                varrohit: rohitph
               tasks:
                 - exec:
                     arguments:
