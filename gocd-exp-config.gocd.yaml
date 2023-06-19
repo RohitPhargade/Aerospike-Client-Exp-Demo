@@ -23,6 +23,8 @@ pipelines:
             allow_only_on_success: false
           jobs:
             jobname2:
+              agent:
+                agent_name: msi
               timeout: 0
               environment_variables:
                 varrohit: rohitph
