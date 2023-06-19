@@ -13,6 +13,7 @@ repositories {
 tasks.register('customVersionTask') {
     doLast {
         def pipelinenameEnv = System.getenv('GO_PIPELINE_NAME')
+        def varrohit1 = System.getenv('varrohit')
         def GO_REVISION_MATERIAL_NAME_env = System.getenv('GO_REVISION_MATERIAL_NAME_1')
         def pipelinenamePro = System.getProperty('GO_PIPELINE_NAME')
         def GO_REVISION_MATERIAL_NAME_pro = System.getProperty('GO_REVISION_MATERIAL_NAME_1')
@@ -20,11 +21,13 @@ tasks.register('customVersionTask') {
         println "System pipelinenamePro $pipelinenamePro"
         println "System GO_REVISION_MATERIAL_NAME_env $GO_REVISION_MATERIAL_NAME_env"
         println "System GO_REVISION_MATERIAL_NAME_pro $GO_REVISION_MATERIAL_NAME_pro"
+        println "System varrohit1 $varrohit1"
 
     }
 }
 
 build.dependsOn(customVersionTask)
+assemble.dependsOn(customVersionTask)
 
 
 dependencies {
