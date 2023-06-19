@@ -1,0 +1,38 @@
+format_version: 10
+pipelines:
+  Pipeline-name1:
+    group: New-Pipiline-Test
+    label_template: ${COUNT}
+    lock_behavior: unlockWhenFinished
+    display_order: -1
+    materials:
+      Material-Name-1:
+        git: https://github.com/RohitPhargade/Aerospike-Client-Exp-Demo.git
+        username: phargaderohit9696@gmail.com
+        shallow_clone: false
+        auto_update: false
+        branch: main
+        encrypted_password: AES:426ni8BbY/IxYl9jACpCjw==:o6ZOrsV7HSpa9plU1xRTPQ==
+    stages:
+      - Stage-Name1:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: false
+          approval:
+            type: success
+            allow_only_on_success: false
+          jobs:
+            run-build-first:
+              timeout: 0
+              environment_variables:
+                varrohit: rohitph
+              secure_variables:
+                secureVariable1: AES:N02aNKttMsJrDcu4wkM2mg==:6fFVnl6vV8XWuuAjTAbCiPpx38pCy/dn1vJ7TcpEtF4=
+              tasks:
+                - exec:
+                    arguments:
+                      - build
+                    command: ./gradlew
+                    run_if: passed
+    parameters:
+      parameter1: parameter1value
