@@ -10,7 +10,7 @@ public class ExpBuilder {
 
     //comment
     public static Exp getBinTypeExp(String name, String type) {
-        if (type == null || type.isEmpty()) {
+        if (type == null || type.isEmpty() || name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Type parameter cannot be null or empty");
         }
         return switch(type.toUpperCase()){
@@ -35,6 +35,9 @@ public class ExpBuilder {
     }
 
     public static Exp getValueFromObject(Object object) {
+        if (object == null) {
+            throw new IllegalArgumentException("Value parameter cannot be null or empty");
+        }
         Class<?> aClass = object.getClass();
         String className = aClass.getSimpleName();
         return switch(className){
@@ -63,7 +66,9 @@ public class ExpBuilder {
 
     //     Boolean Operator
     public static Exp getOperationExp(String operation, Exp firstValue, Exp secondValue) {
-
+        if (operation == null || firstValue == null || secondValue == null) {
+            throw new IllegalArgumentException("Operation or any parameter should not be null");
+        }
         return switch(operation.toUpperCase()){
             case "EQ" -> Exp.eq(firstValue, secondValue);
             case "NE" -> Exp.ne(firstValue, secondValue);
@@ -84,7 +89,9 @@ public class ExpBuilder {
     }
 
     public static Exp getOperationExpByArray(String operation, Exp value) {
-
+        if (operation == null || value == null) {
+            throw new IllegalArgumentException("Operation or any parameter should not be null");
+        }
         return switch(operation.toUpperCase()){
             case "NOT" -> Exp.not(value);
             case "ABS" -> Exp.abs(value);
@@ -99,7 +106,9 @@ public class ExpBuilder {
     }
 
     public static Exp getOperationExpByExp(String operation, Exp... value) {
-
+        if (operation == null || value == null || value.length <1) {
+            throw new IllegalArgumentException("Operation or any parameter should not be null");
+        }
         return switch(operation.toUpperCase()){
             case "AND" -> Exp.and(value);
             case "OR" -> Exp.or(value);
